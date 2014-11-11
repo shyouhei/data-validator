@@ -9,26 +9,26 @@ rule = Data::Validator.new(
   'host'       => { isa: String },
   'path_query' => { isa: String, default: '/' },
   'method'     => { isa: String, default: 'GET' },
-);
+)
 
-args = rule.validate('uri' => 'http://example.com');
+args = rule.validate('uri' => 'http://example.com')
 ```
 
 and below versus https://metacpan.org/pod/Data::Validator::Recursive
 
 ```ruby
 # create a new rule
-rule = Data::Validator::Recursive.new(
+rule = Data::Validator.new(
     'foo' => String,
     'bar' => { isa: Integer },
     'baz' => {
         isa: Hash, # default
-        rule => {
-            'hoge' => { isa: String, optional => 1 },
+        rule: {
+            'hoge' => { isa: String, optional: 1 },
             'fuga' => Integer
         },
     },
-);
+)
 
 # input data for validation
 input = {
@@ -38,13 +38,15 @@ input = {
         'hoge' => 'kamakura',
         'fuga' => 1185,
     },
-};
+}
 
 # do validation
-params = rule.validate(iput) # raises automatically on error
+params = rule.validate(input) # raises automatically on error
 ```
 
-#### limitations compared to perl
+#### limitations
+- `Data::Validator` is recursive by default.  There is no such thing like a nonrecursive validator.
 - `->with('Method')` does not make sense to us, so not supported.
-- I don't understand the actual needs of `xor`; all examples seems illustravive to me.  Other validations like JSON Schema (cf [zigorou/perl-JSV](https://github.com/zigorou/perl-JSV)) do not have this.  This can negatively impact.
+- We do distinguish arrays and hashes unlike perl.  There also are no `->with('Sequenced')`.
+- I don't understand the actual needs of `xor`; all examples seems illustravive to me.  Other validators like JSON Schema (cf [zigorou/perl-JSV](https://github.com/zigorou/perl-JSV)) do not have this.  This lack of understanding can negatively impact.
 - I don't understand why @gfx thinks it's fast.
