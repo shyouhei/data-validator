@@ -18,7 +18,7 @@ and below versus https://metacpan.org/pod/Data::Validator::Recursive
 
 ```ruby
 # create a new rule
-rule = Data::Validator.new(
+rule = Data::Validator::Recursive.new(
     'foo' => String,
     'bar' => { isa: Integer },
     'baz' => {
@@ -47,6 +47,7 @@ params = rule.validate(input) # raises automatically on error
 #### limitations
 - `Data::Validator` is recursive by default.  There is no such thing like a nonrecursive validator.
 - `->with('Method')` does not make sense to us, so not supported.
+- `does` also does not make sense.  Not supported.
 - We do distinguish arrays and hashes unlike perl.  There also are no `->with('Sequenced')`.
 - I don't understand the actual needs of `xor`; all examples seems illustravive to me.  Other validators like JSON Schema (cf [zigorou/perl-JSV](https://github.com/zigorou/perl-JSV)) do not have this.  This lack of understanding can negatively impact.
 - I don't understand why @gfx thinks it's fast.

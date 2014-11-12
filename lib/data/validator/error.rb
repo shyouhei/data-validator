@@ -1,4 +1,4 @@
-#! /your/favourite/path/to/rake
+#! /your/favourite/path/to/ruby
 # -*- mode: ruby; coding: utf-8; indent-tabs-mode: nil; ruby-indent-level 2 -*-
 
 # Copyright (c) 2014 Urabe, Shyouhei
@@ -21,57 +21,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-begin
-  require 'rubygems'
-  require 'bundler/setup'
-  require 'rake'
-rescue Exception => e  
-  $stderr.puts e.message
-  $stderr.puts "Run `bundle install` to install missing gems"
-  exit false
-else
-  begin
-    Bundler.setup :default
-  rescue Bundler::BundlerError => e
-    $stderr.puts e.message
-    $stderr.puts "Run `bundle install` to install missing gems"
-    exit e.status_code
-  end
-end
-
-begin
-  Bundler.setup :development
-  require 'yard'
-  require 'bundler/gem_tasks'
-  require 'rake/testtask'
-
-  YARD::Rake::YardocTask.new
-
-  task default: :test
-  task spec: :test
-  desc "run tests"
-  Rake::TestTask.new do |t|
-    t.test_files = FileList['test/**/*.rb']
-  end
-rescue LoadError, NameError
-  # OK, they can be absent on non-development mode.
-end
-
-desc "a la rails console"
-task :console do
-  require_relative 'lib/data/validator'
-  require 'irb'
-  require 'irb/completion'
-  ARGV.clear
-  IRB.start
-end
-task :c => :console
-
-desc "pry console"
-task :pry do
-  require_relative 'lib/data/validator'
-  require 'pry'
-  ARGV.clear
-  Pry.start
-end
-
+Data::Validator::Error = Class.new StandardError # Validation failures
