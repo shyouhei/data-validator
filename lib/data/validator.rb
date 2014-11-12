@@ -85,7 +85,7 @@ class Data::Validator
       when @isa == Hash then
         recur = rule[:rule].each_pair.each_with_object Hash.new do |(k, v), r|
           case v when Hash then
-            r[k] = self.class.send :bare_new, v
+            r[k] = self.class.send :bare_new, **v
           else
             r[k] = self.class.send :bare_new, isa: v
           end

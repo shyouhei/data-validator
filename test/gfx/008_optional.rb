@@ -7,9 +7,9 @@ class Test008Optional < Test::Unit::TestCase
     v = Data::Validator.new(
       'foo' => { },
       'bar' => { },
-      'baz' => { optional => 1 }
+      'baz' => { optional: 1 }
     )
-    asset { v.is_a? Data::Validator }
+    assert { v.is_a? Data::Validator }
 
     args = v.validate({ 'foo' => 1, 'bar' => 2 })
     assert { args == { 'foo' => 1, 'bar' => 2 } }
