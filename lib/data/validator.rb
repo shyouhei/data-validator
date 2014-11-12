@@ -229,4 +229,4 @@ class Data::Validator
 end
 
 require_relative 'validator/recursive'
-require_relative 'validator/Error'
+require_relative 'validator/error'
