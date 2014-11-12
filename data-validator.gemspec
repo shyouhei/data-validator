@@ -22,7 +22,7 @@
 # SOFTWARE.
 
 # hack avoid namespace pollution
-path              = File.expand_path 'lib/data/validator/version.rb', __dir__
+path              = File.expand_path 'lib/data/validator/version.rb', File.dirname(__FILE__)
 content           = File.read path
 version           = Module.new.module_eval <<-'end'
   Data            = Module.new

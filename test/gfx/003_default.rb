@@ -20,7 +20,7 @@ class Test003Default < Test::Unit::TestCase
 
     v = Data::Validator.new(
       'foo' => { isa: Numeric, default: 99 },
-      'bar' => { isa: Numeric, default: -> (validator, rule, args) {
+      'bar' => { isa: Numeric, default: lambda {|validator, rule, args|
          args['foo'] + 1
        } },
     )
