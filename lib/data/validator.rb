@@ -72,7 +72,7 @@ class Data::Validator
   # @option rule [String]     isa          Class to match.
   # @option rule [<String>]   :xor         ??? (please ask gfx).
   # @option rule [Object]     :default     Default value.
-  # @option rule [true,false] :option      Omitable or not.
+  # @option rule [true,false] :optional    Omitable or not.
   # @option rule [true,false] :allow_extra Can have others or not.
   # @option rule [Hash]       :rule        Recursion rule.
   def initialize(rule = {})
