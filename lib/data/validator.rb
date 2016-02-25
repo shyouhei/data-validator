@@ -106,7 +106,7 @@ class Data::Validator
   # @param  [Object] actual Thing to validate.
   # @return [Object]        The argument, validated and filled defaults.
   def validate actual = @isa.new
-    case actual when @isa then
+    case actual when *@isa then
       if @rule.has_key? :rule then
         case
         when @isa == Hash  then return validate_hash actual
