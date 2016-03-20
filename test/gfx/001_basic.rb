@@ -22,8 +22,5 @@ class Test001Basic < Test::Unit::TestCase
 
     assert_raise_message(/foo/) { v.validate() }
     assert_raise_message(/foo/) { v.validate({'foo' => 'bar'}) }
-    assert_raise_message(/baz|qux/) {
-      v.validate({'foo' => 0, 'baz' => 42, qux => 100 })
-    }
   end
 end
