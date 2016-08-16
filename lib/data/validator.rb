@@ -128,6 +128,16 @@ class Data::Validator
     case extension
     when 'AllowExtra' then
       @rule[:allow_extra] = true
+      if @rule.has_key? :rule
+        case
+        when @isa == Hash  then
+          @rule[:rule].each_value do |rule|
+            rule.with extension if rule.is_a? self.class
+          end
+        else
+          @rule[:rule].with extension if @rule[:rule].is_a? self.class
+        end
+      end
     else
       raise ArgumentError, "unsupported extension #{extension}"
     end
@@ -209,6 +219,12 @@ class Data::Validator
           }
         } then
         raise Error, "#{x} or #{y} missing"
+      end
+    end
+    unless @rule[:allow_extra] then
+      extra = (actual.keys - @rule[:rule].keys)
+      unless extra.empty? then
+        raise Error, "extra key(s): #{extra.inspect}"
       end
     end
     return actual
