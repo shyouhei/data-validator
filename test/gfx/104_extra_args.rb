@@ -6,7 +6,7 @@ class Test104ExtraArgs < Test::Unit::TestCase
   def test_test
     v = Data::Validator.new(
       'foo' => { },
-    ).with('AllowExtra')
+    )
 
     args = v.validate('foo' => 42, 'bar' => 15)
     assert { args == {'foo' => 42, 'bar' => 15} }
