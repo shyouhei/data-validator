@@ -24,7 +24,9 @@
 # Toplevel namespace `::Data` got deprecated, and will eventually be disappear.
 # However we are using it because p5-Data-Validator is in this namespace.  This
 # has nothing to do with the deprecation of Ruby's `::Data`.
-if defined? ::Data
+if !defined? ::Data then
+  Data = Class.new # create one here
+elsif defined? ::Warning then
   # We have to shut up the deprecation warning.
   class << Warning
     prepend Module.new {
@@ -34,5 +36,5 @@ if defined? ::Data
     }
   end
 else
-  Data = Class.new # create one here
+  # This ruby is very old.  We don't have to do anything.
 end
