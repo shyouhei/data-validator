@@ -177,6 +177,8 @@ class Data::Validator
         fillin << key
       elsif rule[:optional] then
         # ok
+      elsif @isa then
+        missing << key
       elsif @rule[:allow_extra] then
         # ok
       else
